@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ứng dụng quản lý sản phẩm</title>
+</head>
+<body>
+    <h1>Quản lý sản phẩm</h1>
+    <input type="button" id="btnAdd" value="Thêm" onclick="Add()"><input type="button" id="btnModify" value="Đổi tên" onclick="Modify()"><input type="button" id="btnRemove" value="Xóa" onclick="Remove()">
+    <span id="display"></span><br>
+
+    <script>
+        let List = [];
+
+        function Add() {
+            let Product = prompt('Nhập tên sản phẩm : ');
+            let check = true;
+            if (Product == "") {
+                alert('Nhập sai !');
+            }else if (List != "") {
+                for (i = 0; i < List.length; i++) {
+                    switch (Product) {
+                        case List[i] :
+                            alert("Trùng Tên !");
+                            check = false;
+                            break;
+                        case "" :
+                            alert("Nhập sai !");
+                            check = false;
+                            break;
+                    }
+                }
+                if (check){
+                    List.push(Product);
+                }
+            }else {
+                List.push(Product);
+            }
+            document.getElementById('display').innerHTML = List + "<br>";
+
+        }
+
+        function Modify() {
+            if (List == "") {
+                alert('Không có sản phẩm nào trong list !');
+            }else {
+                let Product = prompt('Nhập tên sản phẩm : ');
+                let check = true;
+                if (Product == "") {
+                    alert("Nhập sai !");
+                }
+                if (List != "") {
+                    for (i = 0; i < List.length; i++) {
+
+                        if (Product == List[i]) {
+                            let newName = prompt('Nhập tên mới cho sản phẩm :');
+                            if (newName == "") {
+                                alert('Nhâp sai !');
+                                check = false;
+                                break;
+                            }
+                            for (j = 0; j < List.length; j++) {
+                                if (newName == List[j]) {
+                                    alert('Đã có sản phẩm trùng tên !');
+                                    check = false;
+                                    break;
+                                }
+                            }
+                            if (check) {
+                                List[i] = newName;
+                            }
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check)
+                        alert('Không có sản phẩm trùng tên !');
+                } else {
+                    alert('Chưa có sản phẩm !');
+                }
+            }
+            document.getElementById('display').innerHTML = List + "<br>";
+        }
+        
+        function Remove() {
+            if (List == "") {
+                alert('Không có sản phẩm nào trong list !');
+            }else {
+                let deleteName = prompt('Nhập tên sản phẩm càn xóa : ');
+                let check = true;
+
+                if (deleteName == "") {
+                    alert('Nhập sai !');
+                }
+                if (List != "") {
+                    for (i = 0; i < List.length; i++) {
+                        if (deleteName == List[i]) {
+                            List.splice(i, 1);
+                            check = false;
+                        }
+                    }
+                } else {
+                    alert('Không có sản phẩm trong danh sách !');
+                }
+            }
+
+            document.getElementById('display').innerHTML = List+ "<br>";
+        }
+    </script>
+</body>
+</html>
